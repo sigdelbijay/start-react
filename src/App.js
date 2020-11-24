@@ -1,7 +1,19 @@
 import React, { Component, useState } from 'react';
-import { render } from 'react-dom';
 import './App.css';
+import styled from 'styled-components'
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+  background-color: ${props => props.showPersons ? 'red' : 'green'};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${props => props.showPersons ? 'salmon': 'lightgreen'};
+    color: black;
+`;
 
 class App extends Component {
   state = {
@@ -65,14 +77,18 @@ class App extends Component {
         </div>
       )
     }
+    const classes = [];
+    if(this.state.persons.length <2) classes.push('red');
+    if(this.state.persons.length <1) classes.push('bold');
     return (
-      <div className="App">
-        <h1>Start React App</h1>
-        {/* <button onClick={() => this.switchNameHandler('bijay')}>switch name</button> */}
-        <button onClick={this.togglePersonHandler}>Toggle Persons</button>
-        {persons}
+        <div className="App">
+          <h1>Start React App</h1>
+          <p className={classes.join(' ')}>This is working.</p>
+          {/* <button onClick={() => this.switchNameHandler('bijay')}>switch name</button> */}
+          <StyledButton alt={this.state.showPersons} onClick={this.togglePersonHandler}>Toggle Persons</StyledButton>
+          {persons}
 
-      </div>
+        </div>
     );
   }
 
