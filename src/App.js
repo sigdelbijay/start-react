@@ -1,19 +1,20 @@
 import React, { Component, useState } from 'react';
 import './App.css';
-import styled from 'styled-components'
+// import styled from 'styled-components';
+import classes from './App.css';
 import Person from './Person/Person';
 
-const StyledButton = styled.button`
-  background-color: ${props => props.showPersons ? 'red' : 'green'};
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: ${props => props.showPersons ? 'salmon': 'lightgreen'};
-    color: black;
-`;
+// const StyledButton = styled.button`
+//   background-color: ${props => props.showPersons ? 'red' : 'green'};
+//   color: white;
+//   font: inherit;
+//   border: 1px solid blue;
+//   padding: 8px;
+//   cursor: pointer;
+//   &:hover {
+//     background-color: ${props => props.showPersons ? 'salmon': 'lightgreen'};
+//     color: black;
+// `;
 
 class App extends Component {
   state = {
@@ -58,6 +59,7 @@ class App extends Component {
 
   render (){
     let persons = null;
+    let btnClass = '';
     if(this.state.showPersons) {
       persons = (
         <div>
@@ -76,16 +78,17 @@ class App extends Component {
           changed = {this.nameChangedHandler}>My hobbies are playing and dancing.</Person> */}
         </div>
       )
+      btnClass = classes.Red;
     }
-    const classes = [];
-    if(this.state.persons.length <2) classes.push('red');
-    if(this.state.persons.length <1) classes.push('bold');
+    const assignedClasses = [];
+    if(this.state.persons.length <2) assignedClasses.push(classes.red);
+    if(this.state.persons.length <1) assignedClasses.push(classes.bold);
     return (
-        <div className="App">
+        <div className={classes.App}>
           <h1>Start React App</h1>
-          <p className={classes.join(' ')}>This is working.</p>
+          <p className={assignedClasses.join(' ')}>This is working.</p>
           {/* <button onClick={() => this.switchNameHandler('bijay')}>switch name</button> */}
-          <StyledButton alt={this.state.showPersons} onClick={this.togglePersonHandler}>Toggle Persons</StyledButton>
+          <button className={btnClass} onClick={this.togglePersonHandler}>Toggle Persons</button>
           {persons}
 
         </div>
@@ -96,6 +99,14 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
+
+
+
+
 
   //using state in funcitonal component using useState hook
   // const [personsState, setPersonsState] = useState({
