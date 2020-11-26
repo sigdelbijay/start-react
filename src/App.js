@@ -3,6 +3,7 @@ import './App.css';
 // import styled from 'styled-components';
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 // const StyledButton = styled.button`
 //   background-color: ${props => props.showPersons ? 'red' : 'green'};
@@ -43,7 +44,7 @@ class App extends Component {
   }
 
   nameChangedHandler = (event, id) => {
-    const personIndex = this.state.persons.findIndex(p => p.id === id );
+    const personIndex = this.state.persons.findIndex(p => p.userId === id );
     const persons = [...this.state.persons];
     const person = {...this.state.persons[personIndex]};
     person.name = event.target.value;
@@ -64,12 +65,13 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person 
+            return <ErrorBoundary key={person.id}>
+              <Person 
               name={person.name} 
               age={person.age}
               changed={(event) => this.nameChangedHandler(event, person.id)}
-              click={() => this.deletePersonHandler(index)}
-              key={person.id}/>
+              click={() => this.deletePersonHandler(index)}/>
+            </ErrorBoundary>
           })}
           {/* <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
           <Person name={this.state.persons[1].name} 
